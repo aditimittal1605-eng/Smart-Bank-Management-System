@@ -1,3 +1,4 @@
+file:///C:/Users/Aditi/Desktop/pl%20sql%20project/index.html
 # SmartBank — Banking Management System (PL/SQL)
 
 An MCA database project demonstrating Oracle SQL/PLSQL concepts with a responsive banking dashboard frontend.
