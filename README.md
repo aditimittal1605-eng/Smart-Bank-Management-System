@@ -51,5 +51,4 @@ For a genuinely connected full-stack application, use Oracle APEX (recommended f
 - Exception handling and `RAISE_APPLICATION_ERROR`
 - Transaction management with `COMMIT`, `ROLLBACK`, and `SAVEPOINT`
 
-## Academic-use note
-This is a learning/demo project using fictitious customers and sample balances. It is not production banking software and must not be used to manage real funds.
+
