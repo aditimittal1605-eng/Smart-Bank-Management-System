@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartBank | Banking Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">S</span><span>SmartBank<small>MANAGEMENT SYSTEM</small></span></div>
+    <nav>
+      <button class="nav-item active" data-view="dashboard">▦ <span>Dashboard</span></button>
+      <button class="nav-item" data-view="accounts">♙ <span>Accounts</span></button>
+      <button class="nav-item" data-view="transactions">⇄ <span>Transactions</span></button>
+      <button class="nav-item" data-view="audit">◷ <span>Audit Log</span></button>
+    </nav>
+    <div class="sidebar-note"><div class="status-dot"></div><div><b>Demo environment</b><small>Sample data only</small></div></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div><p class="eyebrow">BANKING OPERATIONS</p><h1 id="page-title">Dashboard</h1></div>
+      <div class="profile"><div class="avatar">SB</div><div><b>SmartBank Admin</b><small>Project demonstration</small></div></div>
+    </header>
+
+    <section id="dashboard" class="view">
+      <div class="welcome"><div><p class="eyebrow light">WELCOME TO SMARTBANK</p><h2>Banking made simple.</h2><p>Manage accounts, move funds, and review activity from one place.</p></div><div class="welcome-icon">↗</div></div>
+      <div class="stats">
+        <article class="stat-card"><span class="stat-label">Total balance</span><div class="stat-value" id="total-balance">₹35,000.00</div><small>Across all sample accounts</small></article>
+        <article class="stat-card"><span class="stat-label">Active accounts</span><div class="stat-value" id="account-count">3</div><small>Registered customers</small></article>
+        <article class="stat-card"><span class="stat-label">Transactions</span><div class="stat-value" id="transaction-count">0</div><small>Recorded in this demo</small></article>
+      </div>
+      <div class="section-heading"><div><p class="eyebrow">QUICK ACTIONS</p><h2>What would you like to do?</h2></div></div>
+      <div class="action-grid">
+        <button class="action-card" data-action="deposit"><span class="action-icon green">＋</span><b>Deposit money</b><small>Add money to an account</small><span class="action-arrow">→</span></button>
+        <button class="action-card" data-action="withdraw"><span class="action-icon orange">－</span><b>Withdraw money</b><small>Withdraw from an account</small><span class="action-arrow">→</span></button>
+        <button class="action-card" data-action="transfer"><span class="action-icon blue">⇄</span><b>Transfer funds</b><small>Move money between accounts</small><span class="action-arrow">→</span></button>
+      </div>
+      <div class="section-heading"><div><p class="eyebrow">OVERVIEW</p><h2>Bank accounts</h2></div><button class="text-button" data-view="accounts">View all →</button></div>
+      <div class="table-wrap"><table><thead><tr><th>ACCOUNT</th><th>CUSTOMER</th><th>TYPE</th><th>BALANCE</th><th>STATUS</th></tr></thead><tbody id="dashboard-accounts"></tbody></table></div>
+    </section>
+
+    <section id="accounts" class="view hidden">
+      <div class="section-heading"><div><p class="eyebrow">CUSTOMER RECORDS</p><h2>All accounts</h2><p class="muted">Sample account information for the project demonstration.</p></div></div>
+      <div class="table-wrap"><table><thead><tr><th>ACCOUNT</th><th>CUSTOMER</th><th>TYPE</th><th>OPENED</th><th>BALANCE</th></tr></thead><tbody id="accounts-table"></tbody></table></div>
+      <div class="info-note">In the Oracle database, account records are stored in the <code>BANK_ACCOUNTS</code> table.</div>
+    </section>
+
+    <section id="transactions" class="view hidden">
+      <div class="section-heading"><div><p class="eyebrow">ACCOUNT ACTIVITY</p><h2>Transaction history</h2></div><button class="primary-button" data-action="deposit">＋ New transaction</button></div>
+      <div class="table-wrap"><table><thead><tr><th>REFERENCE</th><th>DATE</th><th>ACCOUNT</th><th>TYPE</th><th>DESCRIPTION</th><th>AMOUNT</th></tr></thead><tbody id="transactions-table"></tbody></table></div>
+      <p id="empty-transactions" class="empty hidden">No transactions yet. Make a deposit, withdrawal, or transfer to get started.</p>
+    </section>
+
+    <section id="audit" class="view hidden">
+      <div class="section-heading"><div><p class="eyebrow">SECURITY & TRACEABILITY</p><h2>Balance audit log</h2><p class="muted">Shows old and new balances after account changes.</p></div></div>
+      <div class="table-wrap"><table><thead><tr><th>REFERENCE</th><th>DATE</th><th>ACCOUNT</th><th>OLD BALANCE</th><th>NEW BALANCE</th><th>CHANGE</th></tr></thead><tbody id="audit-table"></tbody></table></div>
+      <p id="empty-audit" class="empty hidden">No balance changes have been recorded in this demo yet.</p>
+      <div class="info-note">In Oracle, a database trigger can write these records automatically to <code>BANK_AUDIT_LOG</code>.</div>
+    </section>
+
+    <footer><span>SmartBank · MCA PL/SQL Project</span><span>Frontend demo · Oracle scripts included</span></footer>
+  </main>
+
+  <div id="modal-backdrop" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button id="close-modal" class="close-button" aria-label="Close">×</button>
+      <p class="eyebrow">BANKING OPERATION</p><h2 id="modal-title">Deposit money</h2>
+      <p id="modal-description" class="muted">Enter the details below.</p>
+      <form id="operation-form">
+        <label id="from-label" for="account-select">Account</label>
+        <select id="account-select" required></select>
+        <div id="to-account-group" class="hidden"><label for="to-account-select">Transfer to</label><select id="to-account-select"></select></div>
+        <label for="amount">Amount (₹)</label>
+        <input id="amount" type="number" min="0.01" step="0.01" placeholder="e.g. 1500" required>
+        <p class="form-hint">This browser demo uses sample data. It is not connected to a live bank or Oracle database.</p>
+        <div id="form-error" class="form-error hidden"></div>
+        <button class="primary-button full-width" type="submit">Confirm operation</button>
+      </form>
+    </div>
+  </div>
+  <div id="toast" class="toast hidden" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
